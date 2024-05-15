@@ -1,6 +1,3 @@
-import InputElement from "@/components/InputElement";
-import ButtonElement from "@/components/ButtonElement";
-import StepCounter from "@/modules/auth/components/StepCounter";
 import { Outlet } from "react-router-dom";
 
 const Register = () => {

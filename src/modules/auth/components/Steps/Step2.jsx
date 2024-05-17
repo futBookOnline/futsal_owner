@@ -3,12 +3,11 @@ import InputElement from "@/components/InputElement";
 import ButtonElement from "@/components/ButtonElement";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { emailRegex } from "@/helpers/regex";
-
+import { emailRegex, passwordRegex } from "@/helpers/regex";
+import PasswordError from "../PasswordError";
 const Step2 = () => {
   const navigate = useNavigate();
   const handleSubmission = () => navigate("/auth/register/step_3");
-
 
   {
     /**state and validation for futsal name */
@@ -23,15 +22,31 @@ const Step2 = () => {
     setEmail({
       ...email,
       value: e.target.value,
-      isInvalid: e.target.value == "" ? true : false,
-      errorMessage: e.target.value == "" ? "This field can't be empty" : null,
+      isInvalid:
+        e.target.value == ""
+          ? true
+          : !emailRegex.test(e.target.value)
+          ? true
+          : false,
+      errorMessage:
+        e.target.value == ""
+          ? "This field can't be empty"
+          : !emailRegex.test(e.target.value)
+          ? "Enter a valid email"
+          : null,
     });
   };
   const onEmailBlur = () => {
     setEmail({
       ...email,
-      isInvalid: email.value == "" ? true : false,
-      errorMessage: email.value == "" ? "This field can't be empty" : null,
+      isInvalid:
+        email.value == "" ? true : !emailRegex.test(email.value) ? true : false,
+      errorMessage:
+        email.value == ""
+          ? "This field can't be empty"
+          : !emailRegex.test(email.value)
+          ? "Enter a valid email"
+          : null,
     });
   };
 
@@ -48,16 +63,35 @@ const Step2 = () => {
     setPassword({
       ...password,
       value: e.target.value,
-      isInvalid: e.target.value == "" ? true : false,
-      errorMessage: e.target.value == "" ? "This field can't be empty" : null,
+      isInvalid:
+        e.target.value == ""
+          ? true
+          : !passwordRegex.test(e.target.value)
+          ? true
+          : false,
+      errorMessage:
+        e.target.value == "" ? (
+          "This field can't be empty"
+        ) : !passwordRegex.test(e.target.value) ? (
+          <PasswordError />
+        ) : null,
     });
   };
   const onPasswordBlur = () => {
     setPassword({
       ...password,
-      isInvalid: password.value == "" ? true : false,
+      isInvalid:
+        password.value == ""
+          ? true
+          : !passwordRegex.test(password.value)
+          ? true
+          : false,
       errorMessage:
-        password.value == "" ? "This field can't be empty" : null,
+        password.value == "" ? (
+          "This field can't be empty"
+        ) : !passwordRegex.test(password.value) ? (
+          <PasswordError />
+        ) : null,
     });
   };
 
@@ -74,39 +108,65 @@ const Step2 = () => {
     setConfirmPassword({
       ...confirmPassword,
       value: e.target.value,
-      isInvalid: e.target.value == "" ? true : false,
-      errorMessage: e.target.value == "" ? "This field can't be empty" : null,
+      isInvalid:
+        e.target.value == ""
+          ? true
+          : e.target.value != password.value
+          ? true
+          : false,
+      errorMessage:
+        e.target.value == ""
+          ? "This field can't be empty"
+          : e.target.value != password.value
+          ? "Passwords do not match"
+          : null,
     });
   };
   const onConfirmPasswordBlur = () => {
     setConfirmPassword({
       ...confirmPassword,
-      isInvalid: confirmPassword.value == "" ? true : false,
+      isInvalid:
+        confirmPassword.value == ""
+          ? true
+          : confirmPassword.value != password.value
+          ? true
+          : false,
       errorMessage:
-        confirmPassword.value == "" ? "This field can't be empty" : null,
+        confirmPassword.value == ""
+          ? "This field can't be empty"
+          : confirmPassword.value != password.value
+          ? "Passwords do not match"
+          : null,
     });
   };
 
-  // const validate = () => {
-  //   if (
-  //     futsalName.value == "" ||
-  //     futsalAddress.value == "" ||
-  //     futsalPhoneNumber.value == ""
-  //   ) {
-  //     console.log("false");
-  //     return false;
-  //   }
-  //   console.log("true");
-  //   return true;
-  // };
+  const onSubmitClick = () => {
+    const isValid = (value) => value.isInvalid !== null && !value.isInvalid;
+    const isFormValid = [email, password, confirmPassword].every(isValid);
+    if (isFormValid) navigate("/auth/register/step_3");
+    else {
+      if (email.isInvalid === null)
+        setEmail({
+          ...email,
+          isInvalid: true,
+          errorMessage: "This field can't be empty.",
+        });
+      if (password.isInvalid === null)
+        setPassword({
+          ...password,
+          isInvalid: true,
+          errorMessage: "This field can't be empty.",
+        });
+      if (confirmPassword.isInvalid === null)
+        setConfirmPassword({
+          ...confirmPassword,
+          isInvalid: true,
+          errorMessage: "This field can't be empty.",
+        });
+    }
+  };
 
-  // const onSubmitClick = () => {
-  //   const isValid = validate();
-  //   if (isValid) navigate("/auth/register/step_2");
-  //   else alert("Input details first");
-  // };
-
-  const defaultInputStyle = "w-[20rem]"
+  const defaultInputStyle = "w-[20rem]";
   return (
     <>
       <StepCounter count={2} stepDescription="Setup Account" />
@@ -148,7 +208,7 @@ const Step2 = () => {
         label="Next"
         color="primary"
         customStyle="font-bold"
-        clickEvent={handleSubmission}
+        clickEvent={onSubmitClick}
       />
     </>
   );

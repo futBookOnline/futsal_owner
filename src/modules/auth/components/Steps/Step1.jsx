@@ -56,7 +56,6 @@ const Step1 = () => {
     });
   };
 
-
 // state and validation for futsal address
   const [futsalPhoneNumber, setFutsalPhoneNumber] = useState({
     value: "",
@@ -81,8 +80,6 @@ const Step1 = () => {
           ? "Enter a valid phone number"
           : null,
     });
-    console.log("REGEX VALUE: ", e.target.value);
-    console.log("REGEX: ", numberRegex.test(e.target.value));
   };
   const onFutsalPhoneNumberBlur = () => {
     setFutsalPhoneNumber({

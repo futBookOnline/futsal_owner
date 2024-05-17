@@ -1,18 +1,19 @@
 import { Button } from "@nextui-org/button";
 
-const ButtonElement = ({
-  label,
-  size,
-  radius,
-  color,
-  variant,
-  startContent,
-  endContent,
-  isIconOnly,
-  customStyle,
-  clickEvent,
-  isDisabled,
-}) => {
+const ButtonElement = (props) => {
+  const {
+    label,
+    size,
+    radius,
+    color,
+    variant,
+    startContent,
+    endContent,
+    isIconOnly,
+    customStyle,
+    clickEvent,
+    isDisabled,
+  } = props;
   return (
     <Button
       size={size}

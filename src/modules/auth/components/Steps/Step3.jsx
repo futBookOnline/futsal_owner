@@ -5,26 +5,45 @@ import { useState } from "react";
 
 const Step2 = () => {
   const [confirmationCode, setConfirmationCode] = useState({
-    value:"1234",
+    value: "",
     isInvalid: null,
     errorMessage: null,
-  })
-
+  });
+  const code = 858373;
   const onConfimationCodeChange = (e) => {
     setConfirmationCode({
       ...confirmationCode,
       value: e.target.value,
-      isInvalid: e.target.value == "" ? true : false,
-      errorMessage: e.target.value == "" ? "This field can't be empty" : null,
+      isInvalid:
+        e.target.value == ""
+          ? true
+          : e.target.value != code
+          ? true
+          : false,
+      errorMessage:
+        e.target.value == ""
+          ? "This field can't be empty"
+          : e.target.value != code
+          ? "Code does not match"
+          : null,
     });
+    console.log("ON CHANGE ERROR: ", e.target.value)
   };
   const onConfirmationCodeBlur = (e) => {
-    const code = e.target.value;
     setConfirmationCode({
       ...confirmationCode,
-      isInvalid: code == "" ? true : !confirmationCode.value.match(code) ? true:false,
+      isInvalid:
+        confirmationCode.value == ""
+          ? true
+          : confirmationCode.value != code
+          ? true
+          : false,
       errorMessage:
-        confirmationCode.value == "" ? "This field can't be empty" : null,
+        confirmationCode.value == ""
+          ? "This field can't be empty"
+          : confirmationCode.value != code
+          ? "Code does not match"
+          : null,
     });
   };
 

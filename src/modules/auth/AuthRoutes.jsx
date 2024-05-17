@@ -1,5 +1,6 @@
 import Auth from "@/modules/auth/pages/Auth";
 import Register from "@/modules/auth/pages/Register";
+import Login from "@/modules/auth/pages/Login";
 import { Navigate } from "react-router-dom";
 import Step1 from "@/modules/auth/components/Steps/Step1";
 import Step2 from "@/modules/auth/components/Steps/Step2";
@@ -21,6 +22,7 @@ const authRoutes = {
         { path: "step_3", element: <Step3 /> },
       ],
     },
+    {path: "login", element: <Login />}
   ],
 };
 

@@ -12,7 +12,9 @@ const InputElement = ({
   isInvalid,
   errorMessage,
   onBlur,
-  customStyle
+  customStyle,
+  type,
+  endContent
 }) => {
 
   return (
@@ -27,6 +29,8 @@ const InputElement = ({
       errorMessage={errorMessage}
       onBlur={onBlur}
       className={customStyle}
+      type={type}
+      endContent={endContent}
     />
   );
 };

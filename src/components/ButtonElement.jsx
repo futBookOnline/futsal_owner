@@ -11,6 +11,7 @@ const ButtonElement = ({
   isIconOnly,
   customStyle,
   clickEvent,
+  isDisabled,
 }) => {
   return (
     <Button
@@ -23,6 +24,7 @@ const ButtonElement = ({
       isIconOnly={isIconOnly}
       className={customStyle}
       onPress={clickEvent}
+      isDisabled={isDisabled}
     >
       {label}
     </Button>

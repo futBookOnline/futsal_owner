@@ -5,6 +5,7 @@ import "@/index.css";
 import router from "@/router/router.jsx";
 import { RouterProvider } from "react-router-dom";
 import { NextUIProvider } from "@nextui-org/react";
+import iconLibrary from "@/helpers/icons.js";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

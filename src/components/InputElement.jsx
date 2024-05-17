@@ -1,5 +1,7 @@
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Input } from "@nextui-org/input";
-
+// import { Button } from "@nextui-org/react";
+// import { useState } from "react";
 const InputElement = ({
   label,
   placement,
@@ -9,8 +11,10 @@ const InputElement = ({
   onChange,
   isInvalid,
   errorMessage,
-  onBlur
+  onBlur,
+  customStyle
 }) => {
+
   return (
     <Input
       label={label}
@@ -22,6 +26,7 @@ const InputElement = ({
       isInvalid={isInvalid}
       errorMessage={errorMessage}
       onBlur={onBlur}
+      className={customStyle}
     />
   );
 };

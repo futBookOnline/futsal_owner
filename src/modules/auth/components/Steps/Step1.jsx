@@ -6,7 +6,7 @@ import { useState } from "react";
 
 const Step1 = () => {
   const navigate = useNavigate();
-  const isFormValidated = useState(false);
+  // const isFormValidated = useState(false);
 
   {
     /**state and validation for futsal name */
@@ -85,12 +85,26 @@ const Step1 = () => {
     });
   };
 
-  const validateAndRedirect = () => {
-    const hasError =
-      futsalName.value == "" ||
-      futsalAddress.value == "" ||
-      futsalPhoneNumber.value == "";
-  };
+  // const validate = () => {
+  //   if (
+  //     futsalName.value == "" ||
+  //     futsalAddress.value == "" ||
+  //     futsalPhoneNumber.value == ""
+  //   ) {
+  //     console.log("false");
+  //     return false;
+  //   }
+  //   console.log("true");
+  //   return true;
+  // };
+
+  // const onSubmitClick = () => {
+  //   const isValid = validate();
+  //   if (isValid) navigate("/auth/register/step_2");
+  //   else alert("Input details first");
+  // };
+
+  const defaultInputStyle = "w-[20rem]"
 
   return (
     <>
@@ -105,6 +119,7 @@ const Step1 = () => {
         onBlur={onFutsalNameBlur}
         isInvalid={futsalName.isInvalid}
         errorMessage={futsalName.errorMessage}
+        customStyle={defaultInputStyle}
       />
       {/* {isFutsalNameInvalid} */}
 
@@ -118,6 +133,7 @@ const Step1 = () => {
         onBlur={onFutsalAddressBlur}
         isInvalid={futsalAddress.isInvalid}
         errorMessage={futsalAddress.errorMessage}
+        customStyle={defaultInputStyle}
       />
       <InputElement
         label="Phone Number"
@@ -129,13 +145,13 @@ const Step1 = () => {
         onBlur={onFutsalPhoneNumberBlur}
         isInvalid={futsalPhoneNumber.isInvalid}
         errorMessage={futsalPhoneNumber.errorMessage}
-        // onChange={handleFutsalPhoneNumberChange}
+        customStyle={defaultInputStyle}
       />
       <ButtonElement
         label="Next"
         color="primary"
         customStyle="font-bold"
-        // clickEvent={handleSubmission}
+        // onClick={onSubmitClick}
       />
     </>
   );

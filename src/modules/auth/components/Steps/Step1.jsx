@@ -4,9 +4,14 @@ import ButtonElement from "@/components/ButtonElement";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { numberRegex } from "@/helpers/regex";
+import { useDispatch } from "react-redux";
+import { setFutsalDetails } from "@/store/features/auth/register";
 
 const Step1 = () => {
   const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+
   
   // state and validation for futsal name
   const [futsalName, setFutsalName] = useState({
@@ -104,7 +109,10 @@ const Step1 = () => {
     const isFormValid = [futsalName, futsalAddress, futsalPhoneNumber].every(
       isValid
     );
-    if (isFormValid) navigate("/auth/register/step_2");
+    if (isFormValid) {
+      dispatch(setFutsalDetails(futsalName.value, futsalAddress.value, futsalPhoneNumber.value))
+      navigate("/auth/register/step_2");
+    }
     else {
       if (futsalName.isInvalid === null)
         setFutsalName({

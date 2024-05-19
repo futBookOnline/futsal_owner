@@ -110,7 +110,12 @@ const Step1 = () => {
       isValid
     );
     if (isFormValid) {
-      dispatch(setFutsalDetails(futsalName.value, futsalAddress.value, futsalPhoneNumber.value))
+      const payload = {
+         "futsalName" : futsalName.value,
+         "location" : futsalAddress.value,
+         "phoneNumber": futsalPhoneNumber.value,
+      }
+      dispatch(setFutsalDetails(payload))
       navigate("/auth/register/step_2");
     }
     else {

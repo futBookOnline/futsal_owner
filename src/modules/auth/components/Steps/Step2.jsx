@@ -4,14 +4,14 @@ import ButtonElement from "@/components/ButtonElement";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { emailRegex, passwordRegex } from "@/helpers/regex";
-import PasswordError from "../PasswordError";
-const Step2 = () => {
-  const navigate = useNavigate();
-  const handleSubmission = () => navigate("/auth/register/step_3");
+import PasswordError from "@/modules/auth/components/PasswordError";
+import { useDispatch } from "react-redux";
+import { setAccountDetails } from "@/store/features/auth/register";
 
-  {
-    /**state and validation for futsal name */
-  }
+const Step2 = () => {
+  const navigate = useNavigate();  
+  const dispatch = useDispatch();
+  /**state and validation for futsal name */
   const [email, setEmail] = useState({
     value: "",
     isInvalid: null,
@@ -143,8 +143,18 @@ const Step2 = () => {
   const onSubmitClick = () => {
     const isValid = (value) => value.isInvalid !== null && !value.isInvalid;
     const isFormValid = [email, password, confirmPassword].every(isValid);
-    if (isFormValid) navigate("/auth/register/step_3");
+    if (isFormValid){ 
+      //updating store
+      const payload={
+        "email" : email.value,
+        "password": password.value
+      }
+      dispatch(setAccountDetails(payload)) 
+      //navigating to next page     
+      navigate("/auth/register/step_3");}
     else {
+
+      //handling empty field errors
       if (email.isInvalid === null)
         setEmail({
           ...email,

@@ -6,6 +6,7 @@ import router from "@/router/router.jsx";
 import { RouterProvider } from "react-router-dom";
 import { NextUIProvider } from "@nextui-org/react";
 import iconLibrary from "@/helpers/icons.js";
+// import store from "@/store/store";
 import store from "@/store/store";
 import { Provider } from "react-redux";
 
@@ -20,3 +21,4 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     </Provider>
   </React.StrictMode>
 );
+

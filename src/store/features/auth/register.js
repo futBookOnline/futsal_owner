@@ -3,23 +3,22 @@ import { createSlice } from "@reduxjs/toolkit";
 export const registerSlice = createSlice({
     name: "register",
     initialState: {
-        fields: {
-            futsalName: "",
-            location: "",
-            phoneNumber: "",
-            email: "",
-            password: "",
-        }
+        futsalName: "",
+        location: "",
+        phoneNumber: "",
+        email: "",
+        password: "",
     },
     reducers: {
-        setFutsalDetails(state, action) {
-            state.fields.futsalName = action.payload.futsalName;
-            state.fields.location = action.payload.location;
-            state.fields.phoneNumber = action.payload.phoneNumber;
+        setFutsalDetails: (state, action) => {
+            console.info("action", action)
+            state.futsalName = action.payload.futsalName;
+            state.location = action.payload.location;
+            state.phoneNumber = action.payload.phoneNumber;
         },
-        setAccountDetails(state, action) {
-            state.fields.email = action.payload.email,
-                state.fields.password = action.payload.password
+        setAccountDetails: (state, action) => {
+            state.email = action.payload.email,
+                state.password = action.payload.password
         }
     }
 

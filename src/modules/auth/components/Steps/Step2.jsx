@@ -7,6 +7,7 @@ import { emailRegex, passwordRegex } from "@/helpers/regex";
 import PasswordError from "@/modules/auth/components/PasswordError";
 import { useDispatch } from "react-redux";
 import { setAccountDetails } from "@/store/features/auth/register";
+import { sendEmailVerification } from "@/helpers/nodeMailer";
 
 const Step2 = () => {
   const navigate = useNavigate();  
@@ -150,7 +151,8 @@ const Step2 = () => {
         "password": password.value
       }
       dispatch(setAccountDetails(payload)) 
-      //navigating to next page     
+      //navigating to next page
+      sendEmailVerification(email.value) 
       navigate("/auth/register/step_3");}
     else {
 

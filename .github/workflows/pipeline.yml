@@ -28,3 +28,4 @@ jobs:
           username: ${{ secrets.OWNER_FTP_USERNAME }}
           password: ${{ secrets.OWNER_FTP_PASSWORD }}
           server-dir: /
+          

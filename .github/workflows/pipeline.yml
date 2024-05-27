@@ -27,5 +27,6 @@ jobs:
           server: ${{ secrets.OWNER_FTP_SERVER }}
           username: ${{ secrets.OWNER_FTP_USERNAME }}
           password: ${{ secrets.OWNER_FTP_PASSWORD }}
+          local-dir: dist/
           server-dir: /
           

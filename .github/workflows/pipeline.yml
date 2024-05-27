@@ -3,14 +3,15 @@ run-name: ${{github.actor}} in ${{github.ref}}
 
 on:
     push: 
-    workflow_dispatch:
+      branches:
+          - main
 
 jobs: 
     deploying:
         runs-on: ubuntu-latest
         steps:         
             - name: Checkout Repository
-              uses: actions/checkout@v2
+              uses: actions/checkout@v4
           
             - name: Install Dependencies
               run: npm install
@@ -25,6 +26,13 @@ jobs:
             - name: Display Build Failure Cause
               if: ${{ failure() }}
               run: echo "Build failed due to ${{ job.status }}"
+
+            - name: 📂 Sync files and deploy via FTP
+              uses: SamKirkland/FTP-Deploy-Action@4.3.5
+              with:
+                server: ${{ secrets.OWNER_FTP_SERVER }}
+                username: ${{ secrets.OWNER_FTP_USERNAME }}
+                password: ${{ secrets.OWNER_FTP_PASSWORD }}
 
 
 

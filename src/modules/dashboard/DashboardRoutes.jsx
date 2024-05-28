@@ -7,7 +7,7 @@ const dashboardRoutes = {
   path: "/dashboard",
   element: <Dashboard />,
   children: [
-    { path: "/dashboard", element: <Navigate to="home" /> },
+    {path:"/dashboard", element: <Navigate to="home"/>},
     { path: "home", element: <Home /> },
     { path: "settings", element: <Settings /> },
   ],

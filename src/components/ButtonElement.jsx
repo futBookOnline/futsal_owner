@@ -1,4 +1,5 @@
 import { Button } from "@nextui-org/button";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const ButtonElement = (props) => {
   const {
@@ -10,6 +11,7 @@ const ButtonElement = (props) => {
     startContent,
     endContent,
     isIconOnly,
+    icon,
     customStyle,
     clickEvent,
     isDisabled,
@@ -27,7 +29,7 @@ const ButtonElement = (props) => {
       onPress={clickEvent}
       isDisabled={isDisabled}
     >
-      {label}
+      {isIconOnly && icon ? <FontAwesomeIcon icon={icon} /> : label}
     </Button>
   );
 };

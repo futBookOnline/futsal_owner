@@ -10,15 +10,15 @@ import iconLibrary from "@/helpers/icons.js";
 import store from "@/store/store";
 import { Provider } from "react-redux";
 
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-   <Provider store={store}>
-    <NextUIProvider>
-      <RouterProvider router={router}>
-        <App />
-      </RouterProvider>
-    </NextUIProvider>
+    <Provider store={store}>
+      <NextUIProvider>
+        <RouterProvider router={router}>
+          <App />
+        </RouterProvider>
+      </NextUIProvider>
     </Provider>
   </React.StrictMode>
 );
-

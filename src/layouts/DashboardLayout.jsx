@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Avatar } from "@nextui-org/react";
+import AvatarElement from "../components/AvatarElement";
 import { useNavigate } from "react-router-dom";
 
 const DashboardLayout = ({ menu, children }) => {
@@ -24,12 +24,18 @@ const DashboardLayout = ({ menu, children }) => {
         ))}
       </aside>
       {/*container*/}
-      <div className="w-full flex flex-col p-6">
-        <header className="w-full flex justify-end">
-          <Avatar  className="cursor-pointer" />
+      <div className="w-full flex flex-col py-10 px-20">
+        <header className="w-full flex justify-end mb-20">
+          <AvatarElement
+            isBordered={true}
+            color="secondary"
+            name="U"
+            customClass="cursor-pointer text-[white] text-lg"
+          />
         </header>
+        {/*rendering the current page here*/}
+        {children}
       </div>
-      {children}
     </div>
   );
 };

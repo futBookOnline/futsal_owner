@@ -1,5 +1,9 @@
+import BookingList from "@/modules/dashboard/components/BookingList";
+
 const Home = () => {
-  return <></>;
+  return <>
+  <BookingList />
+  </>;
 };
 
 export default Home;

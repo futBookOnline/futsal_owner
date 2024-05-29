@@ -10,13 +10,13 @@ const Dashboard = () => {
   const [menu, setMenu] = useState(AsideMenu);
 
   useEffect(() => {
-    AsideMenu.map((item) => {
-      if (item.path === currentLocation) {
-        item.isActive = true;
-      } else {
-        item.isActive = false;
-      }
-    });
+    // Update the active state of menu items based on the current location
+    setMenu((prevMenu) =>
+      prevMenu.map((item) => ({
+        ...item,
+        isActive: item.path === currentLocation,
+      }))
+    );
   }, [currentLocation]);
 
   return (

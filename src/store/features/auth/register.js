@@ -11,7 +11,6 @@ export const registerSlice = createSlice({
     },
     reducers: {
         setFutsalDetails: (state, action) => {
-            console.info("action", action)
             state.futsalName = action.payload.futsalName;
             state.location = action.payload.location;
             state.phoneNumber = action.payload.phoneNumber;

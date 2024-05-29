@@ -1,15 +1,23 @@
-import { library } from '@fortawesome/fontawesome-svg-core';
+import { library } from "@fortawesome/fontawesome-svg-core";
 
 import {
-    faEye,
-    faEyeSlash
+  faEye,
+  faEyeSlash,
+  faHouse,
+  faGear,
+  faReceipt,
+  faAngleRight,
+  faCalendar
 } from "@fortawesome/free-solid-svg-icons";
 
-
 const iconLibrary = library.add(
-    faEyeSlash,
-    faEye
-)
+  faEyeSlash,
+  faEye,
+  faHouse,
+  faGear,
+  faReceipt,
+  faAngleRight,
+  faCalendar
+);
 
 export default iconLibrary;
-

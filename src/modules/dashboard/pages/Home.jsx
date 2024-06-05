@@ -7,13 +7,9 @@ const Home = () => {
   return (
     <>
       <Overview />
-      <div className="flex justify-between gap-10 py-10">
-        <div className="basis-2/3">
-          <BookingList />
-        </div>
-        <div className="basis-1/3">
-          <TopClients />
-        </div>
+      <div className="flex justify-between gap-10 py-4 rounded-md my-8">
+        <BookingList className="w-[45%]" />
+        <TopClients className="w-[45%]" />
       </div>
       <RecentBookingTable />
     </>

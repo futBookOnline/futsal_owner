@@ -7,7 +7,7 @@ const DashboardLayout = ({ menu, children }) => {
 
   return (
     <div className="w-full h-screen flex">
-      <aside className="w-[10rem] max-w-[15rem] bg-purple-900 h-screen box-border px-3 py-6 flex flex-col gap-3">
+      <aside className="w-[15rem] max-w-[15rem] bg-green-800 h-screen box-border px-3 py-6 flex flex-col gap-3 fixed">
         {menu.map((item) => (
           <div
             onClick={() => navigate(item.path)}
@@ -25,7 +25,7 @@ const DashboardLayout = ({ menu, children }) => {
       </aside>
       {/*container*/}
       <div className="w-full flex flex-col py-10 px-20">
-        <header className="w-full flex justify-end mb-20">
+        <header className="w-full flex justify-end mb-10">
           <AvatarElement
             isBordered={true}
             color="secondary"
@@ -34,7 +34,10 @@ const DashboardLayout = ({ menu, children }) => {
           />
         </header>
         {/*rendering the current page here*/}
+        <div className="absolute left-[15rem] p-10">
         {children}
+        </div>
+        
       </div>
     </div>
   );

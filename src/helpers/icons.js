@@ -7,7 +7,9 @@ import {
   faGear,
   faReceipt,
   faAngleRight,
-  faCalendar
+  faCalendar,
+  faClipboardList,
+  faUsers
 } from "@fortawesome/free-solid-svg-icons";
 
 const iconLibrary = library.add(
@@ -17,7 +19,9 @@ const iconLibrary = library.add(
   faGear,
   faReceipt,
   faAngleRight,
-  faCalendar
+  faCalendar,
+  faClipboardList,
+  faUsers
 );
 
 export default iconLibrary;

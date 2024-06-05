@@ -6,6 +6,18 @@ const AsideMenu = [
     isActive: false,
   },
   {
+    title: "Bookings",
+    icon: "fa-solid fa-clipboard-list",
+    path: "/dashboard/bookings",
+    isActive: false,
+  },
+  {
+    title: "Clients",
+    icon: "fa-solid fa-users",
+    path: "/dashboard/clients",
+    isActive: false,
+  },
+  {
     title: "Settings",
     icon: "fa-solid fa-gear",
     path: "/dashboard/settings",

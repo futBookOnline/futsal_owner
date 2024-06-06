@@ -1,4 +1,4 @@
-import React from 'react'
+import TableElement from "@/components/TableElement"
 
 const RecentBookingTable = () => {
   const data = [
@@ -67,13 +67,13 @@ const RecentBookingTable = () => {
     }
 ]
 
+const headers = Object.keys(data[0])
   return (
     <>
       <header>
-        <p className='text-xl'>Recent Bookings</p>
-        <hr />
+        <p className='text-xl font-semibold'>Recent Bookings</p>
       </header>
-      <div className="my-4">
+      {/* <div className="my-4">
         <table className='min-w-full'>
           <thead>
             <tr className='border-b-1'>
@@ -97,7 +97,8 @@ const RecentBookingTable = () => {
             
           </tbody>
         </table>
-      </div>
+      </div> */}
+      <TableElement headers={headers} rows={data}/>
     </>
   )
 }

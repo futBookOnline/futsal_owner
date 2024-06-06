@@ -9,7 +9,7 @@ const TableElement = (props) => {
         <Table isStriped aria-label="Example static collection table" className="mt-5">
             <TableHeader>
                 {headers.map((header, index) =>
-                    <TableColumn>{header}</TableColumn>
+                    <TableColumn className="capitalize">{header}</TableColumn>
                 )}
             </TableHeader>
             {

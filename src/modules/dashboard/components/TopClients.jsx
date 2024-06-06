@@ -1,7 +1,9 @@
-import React from "react";
+import TableElement from "../../../components/TableElement";
+
+const headers = ["Name", "Games"]
 
 const TopClients = () => {
-  const data = [
+  const rows = [
     {
       name: "Iyer",
       game: 10,
@@ -23,17 +25,16 @@ const TopClients = () => {
       game: 5,
     },
     {
-        name:"Parampeel Parambatur Chinnaswami Muthuswami Venugopal Iyer",
-        game: 1
+      name: "Parampeel Parambatur Chinnaswami Muthuswami Venugopal Iyer",
+      game: 1
     }
   ];
   return (
-    <>
+    <div className="min-w-[45%]">
       <header>
-        <p className="text-xl">Top Clients</p>
-        <hr />
+        <p className="text-xl font-semibold">Top Clients</p>
       </header>
-      <div className="my-4">
+      {/* <div className="my-4">
         <table className="hover:table-fixed">
           <thead>
             <tr>
@@ -50,8 +51,10 @@ const TopClients = () => {
             ))}
           </tbody>
         </table>
-      </div>
-    </>
+      </div> */}
+
+      <TableElement headers={headers} className="mt-5" rows={rows}/>
+    </div>
   );
 };
 

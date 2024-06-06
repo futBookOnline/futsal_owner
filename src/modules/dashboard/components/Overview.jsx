@@ -5,7 +5,7 @@ const Overview = () => {
   return (
     <div className='w-full'>
       <header >
-        <p className="text-xl font-medium mb-2">Overview</p>
+        <p className="text-xl font-semibold mb-2">Overview</p>
       </header>
       <div className='flex justify-start mt-3 gap-8'>
         <OverviewCard title={"Total Bookings"} value={10} />

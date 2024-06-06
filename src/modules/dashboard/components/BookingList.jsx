@@ -46,7 +46,7 @@ const BookingList = () => {
   return (
     <div className="w-full max-w-full flex flex-col gap-5">
       <header className="w-full flex justify-between">
-        <p className="text-xl font-medium">Booking List</p>
+        <p className="text-xl font-semibold">Booking List</p>
         <div className="flex items-center gap-4">
           <p className="text-md">{currentDate}</p>
           <ButtonElement isIconOnly={true} icon="fa-solid fa-calendar" />

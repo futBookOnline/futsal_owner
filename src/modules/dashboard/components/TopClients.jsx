@@ -3,7 +3,7 @@ import TableElement from "../../../components/TableElement";
 const headers = ["Name", "Games"]
 
 const TopClients = () => {
-  const data = [
+  const rows = [
     {
       name: "Iyer",
       game: 10,
@@ -32,8 +32,7 @@ const TopClients = () => {
   return (
     <div className="min-w-[45%]">
       <header>
-        <p className="text-xl">Top Clients</p>
-        <hr />
+        <p className="text-xl font-semibold">Top Clients</p>
       </header>
       {/* <div className="my-4">
         <table className="hover:table-fixed">
@@ -54,9 +53,7 @@ const TopClients = () => {
         </table>
       </div> */}
 
-      <TableElement headers={headers} className="mt-5">
-
-      </TableElement>
+      <TableElement headers={headers} className="mt-5" rows={rows}/>
     </div>
   );
 };

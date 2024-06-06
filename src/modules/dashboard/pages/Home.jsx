@@ -1,7 +1,7 @@
 import BookingList from "@/modules/dashboard/components/BookingList";
 import Overview from "@/modules/dashboard/components/Overview";
-import TopClients from "../components/TopClients";
-import RecentBookingTable from "../components/RecentBookingTable";
+import TopClients from "@/modules/dashboard/components/TopClients";
+import RecentBookingTable from "@/modules/dashboard/components/RecentBookingTable";
 
 const Home = () => {
   return (

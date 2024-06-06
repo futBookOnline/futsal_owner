@@ -1,6 +1,6 @@
 import React from "react";
-import Search from "../components/Search";
-import TableElement from "../../../components/TableElement";
+import Search from "@/modules/dashboard/components/Search";
+import TableElement from "@/components/TableElement";
 const Clients = () => {
   const data = [
     { name: "Alice Johnson", game: "5" },
@@ -28,7 +28,7 @@ const Clients = () => {
   return (
     <>
       <header>
-        <p className="text-xl">Client List</p>
+        <p className="text-xl font-semibold">Client List</p>
       </header>
       <Search />
       <TableElement headers={headers} rows={data}/>

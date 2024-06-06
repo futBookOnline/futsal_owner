@@ -1,4 +1,4 @@
-import CardElement from "../../../components/CardElement"
+import CardElement from "@/components/CardElement"
 
 const OverviewCard = (props) => {
   const { title, value } = props

@@ -2,32 +2,29 @@ import StepCounter from "@/modules/auth/components/StepCounter";
 import InputElement from "@/components/InputElement";
 import ButtonElement from "@/components/ButtonElement";
 import { useState } from "react";
+import store from "@/store/store.js";
 
-const Step2 = () => {
+const Step3 = () => {
+  const verificationCode = store.getState().registerReducer.verificationCode
   const [confirmationCode, setConfirmationCode] = useState({
     value: "",
     isInvalid: null,
     errorMessage: null,
   });
-  const code = 858373;
   const onConfimationCodeChange = (e) => {
     setConfirmationCode({
       ...confirmationCode,
       value: e.target.value,
       isInvalid:
-        e.target.value == ""
-          ? true
-          : e.target.value != code
-          ? true
-          : false,
+        e.target.value == "" ? true : e.target.value != verificationCode ? true : false,
       errorMessage:
         e.target.value == ""
           ? "This field can't be empty"
-          : e.target.value != code
+          : e.target.value != verificationCode
           ? "Code does not match"
           : null,
     });
-    console.log("ON CHANGE ERROR: ", e.target.value)
+    console.log("ON CHANGE ERROR: ", e.target.value);
   };
   const onConfirmationCodeBlur = (e) => {
     setConfirmationCode({
@@ -35,17 +32,19 @@ const Step2 = () => {
       isInvalid:
         confirmationCode.value == ""
           ? true
-          : confirmationCode.value != code
+          : confirmationCode.value != verificationCode
           ? true
           : false,
       errorMessage:
         confirmationCode.value == ""
           ? "This field can't be empty"
-          : confirmationCode.value != code
+          : confirmationCode.value != verificationCode
           ? "Code does not match"
           : null,
     });
   };
+
+  const handleRegistration = () => {};
 
   return (
     <>
@@ -60,14 +59,20 @@ const Step2 = () => {
         placement="outside"
         placeholder="Enter confirmation code"
         variant="bordered"
+        maxLength={6}
         onChange={onConfimationCodeChange}
         onBlur={onConfirmationCodeBlur}
         isInvalid={confirmationCode.isInvalid}
         errorMessage={confirmationCode.errorMessage}
       />
-      <ButtonElement label="Finish" color="primary" customStyle="font-bold" />
+      <ButtonElement
+        label="Finish"
+        color="primary"
+        customStyle="font-bold"
+        clickEvent={handleRegistration}
+      />
     </>
   );
 };
 
-export default Step2;
+export default Step3;

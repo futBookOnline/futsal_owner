@@ -6,11 +6,14 @@ import { useState } from "react";
 import { emailRegex, passwordRegex } from "@/helpers/regex";
 import PasswordError from "@/modules/auth/components/PasswordError";
 import { useDispatch } from "react-redux";
-import { setAccountDetails } from "@/store/features/auth/register";
-import { sendEmailVerification } from "@/helpers/nodeMailer";
+import {
+  setAccountDetails,
+  setVerificationCode,
+} from "@/store/features/auth/register";
+import { sendVerificationEmail } from "@/modules/auth/api/authApi";
 
 const Step2 = () => {
-  const navigate = useNavigate();  
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   /**state and validation for futsal name */
   const [email, setEmail] = useState({
@@ -141,21 +144,24 @@ const Step2 = () => {
     });
   };
 
-  const onSubmitClick = () => {
+  const onSubmitClick = async () => {
     const isValid = (value) => value.isInvalid !== null && !value.isInvalid;
     const isFormValid = [email, password, confirmPassword].every(isValid);
-    if (isFormValid){ 
+    if (isFormValid) {
+      const response = await sendVerificationEmail(email.value);
       //updating store
-      const payload={
-        "email" : email.value,
-        "password": password.value
-      }
-      dispatch(setAccountDetails(payload)) 
+      const payload = {
+        email: email.value,
+        password: password.value,
+        verificationCode: response.data.data.verificationCode,
+      };
+      dispatch(setAccountDetails(payload));
+      dispatch(setVerificationCode(payload));
       //navigating to next page
-      sendEmailVerification(email.value) 
-      navigate("/auth/register/step_3");}
-    else {
 
+      // get verification code from above function
+      navigate("/auth/register/step_3");
+    } else {
       //handling empty field errors
       if (email.isInvalid === null)
         setEmail({

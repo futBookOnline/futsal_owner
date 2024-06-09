@@ -3,48 +3,72 @@ import InputElement from "@/components/InputElement";
 import ButtonElement from "@/components/ButtonElement";
 import { useState } from "react";
 import store from "@/store/store.js";
+import {
+  registerFutsalOwner,
+  createFutsalProfile,
+} from "@/modules/auth/api/authApi";
 
 const Step3 = () => {
-  const verificationCode = store.getState().registerReducer.verificationCode
+  const [loading, setLoading] = useState(false);
+  const [disabled, setDisabled] = useState(true);
+  const verificationCode = store.getState().registerReducer.verificationCode;
   const [confirmationCode, setConfirmationCode] = useState({
     value: "",
     isInvalid: null,
     errorMessage: null,
   });
+
   const onConfimationCodeChange = (e) => {
+    const newValue = e.target.value;
+    let isInvalid =
+      newValue == "" ? true : newValue != verificationCode ? true : false;
     setConfirmationCode({
       ...confirmationCode,
-      value: e.target.value,
-      isInvalid:
-        e.target.value == "" ? true : e.target.value != verificationCode ? true : false,
+      value: newValue,
+      isInvalid: isInvalid,
       errorMessage:
-        e.target.value == ""
+        newValue == ""
           ? "This field can't be empty"
-          : e.target.value != verificationCode
+          : newValue != verificationCode
           ? "Code does not match"
           : null,
     });
-    console.log("ON CHANGE ERROR: ", e.target.value);
-  };
-  const onConfirmationCodeBlur = (e) => {
-    setConfirmationCode({
-      ...confirmationCode,
-      isInvalid:
-        confirmationCode.value == ""
-          ? true
-          : confirmationCode.value != verificationCode
-          ? true
-          : false,
-      errorMessage:
-        confirmationCode.value == ""
-          ? "This field can't be empty"
-          : confirmationCode.value != verificationCode
-          ? "Code does not match"
-          : null,
-    });
+    isInvalid ? setDisabled(true) : setDisabled(false);
   };
 
-  const handleRegistration = () => {};
+  const onConfirmationCodeBlur = (e) => {
+    const newValue = e.target.value;
+    let isInvalid =
+      newValue == "" ? true : newValue != verificationCode ? true : false;
+    setConfirmationCode({
+      ...confirmationCode,
+      isInvalid: isInvalid,
+      errorMessage:
+        confirmationCode.value == ""
+          ? "This field can't be empty"
+          : confirmationCode.value != verificationCode
+          ? "Code does not match"
+          : null,
+    });
+    isInvalid ? setDisabled(true) : setDisabled(false);
+  };
+
+  const handleRegistration = async () => {
+    if (!confirmationCode.isInvalid) {
+      try {
+        setLoading(true);
+        const ownerPayload = {
+          email: store.getState().registerReducer.email,
+          password: store.getState().registerReducer.password,
+        };
+        const response = await registerFutsalOwner(ownerPayload);
+        console.log("RESPOSE: ", response);
+      } catch (error) {
+      } finally {
+        setLoading(false);
+      }
+    }
+  };
 
   return (
     <>
@@ -69,6 +93,8 @@ const Step3 = () => {
         label="Finish"
         color="primary"
         customStyle="font-bold"
+        isDisabled={disabled}
+        isLoading={loading}
         clickEvent={handleRegistration}
       />
     </>

@@ -1,12 +1,5 @@
 import { useAxios } from "@/helpers/axios.js";
 
-export const registerFutsal = async (payload) => {
-  const method = "post";
-  const url = "owners/register";
-  const response = await useAxios(url, method, payload);
-  return response;
-};
-
 export const sendVerificationEmail = async (email) => {
   const method = "post";
   const url = "email/verification";
@@ -15,3 +8,19 @@ export const sendVerificationEmail = async (email) => {
   const response = await useAxios(url, method, payload);
   return response;
 };
+
+
+export const registerFutsalOwner = async (payload) => {
+  const method = "post";
+  const url = "owners/register";
+  const response = await useAxios(url, method, payload);
+  return response.data;
+};
+
+
+export const createFutsalProfile = async(payload) => {
+  const method = "post"
+  const url = "venues/add"
+  const response = await useAxios(url, method, payload)
+  return response
+}

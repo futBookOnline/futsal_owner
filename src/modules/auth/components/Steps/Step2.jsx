@@ -15,6 +15,7 @@ import { sendVerificationEmail } from "@/modules/auth/api/authApi";
 const Step2 = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const[loading, setLoading] = useState(false)
   /**state and validation for futsal name */
   const [email, setEmail] = useState({
     value: "",
@@ -148,6 +149,7 @@ const Step2 = () => {
     const isValid = (value) => value.isInvalid !== null && !value.isInvalid;
     const isFormValid = [email, password, confirmPassword].every(isValid);
     if (isFormValid) {
+      setLoading(true)
       const response = await sendVerificationEmail(email.value);
       //updating store
       const payload = {
@@ -158,7 +160,7 @@ const Step2 = () => {
       dispatch(setAccountDetails(payload));
       dispatch(setVerificationCode(payload));
       //navigating to next page
-
+if(response) setLoading(false)
       // get verification code from above function
       navigate("/auth/register/step_3");
     } else {
@@ -226,6 +228,7 @@ const Step2 = () => {
         label="Next"
         color="primary"
         customStyle="font-bold"
+        isLoading = {loading}
         clickEvent={onSubmitClick}
       />
     </>

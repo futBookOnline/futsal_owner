@@ -10,12 +10,15 @@ import {
   setAccountDetails,
   setVerificationCode,
 } from "@/store/features/auth/register";
-import { sendVerificationEmail } from "@/modules/auth/api/authApi";
+import {
+  sendVerificationEmail,
+  checkIfEmailExists,
+} from "@/modules/auth/api/authApi";
 
 const Step2 = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const[loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   /**state and validation for futsal name */
   const [email, setEmail] = useState({
     value: "",
@@ -149,20 +152,29 @@ const Step2 = () => {
     const isValid = (value) => value.isInvalid !== null && !value.isInvalid;
     const isFormValid = [email, password, confirmPassword].every(isValid);
     if (isFormValid) {
-      setLoading(true)
-      const response = await sendVerificationEmail(email.value);
-      //updating store
-      const payload = {
-        email: email.value,
-        password: password.value,
-        verificationCode: response.data.data.verificationCode,
-      };
-      dispatch(setAccountDetails(payload));
-      dispatch(setVerificationCode(payload));
-      //navigating to next page
-if(response) setLoading(false)
-      // get verification code from above function
-      navigate("/auth/register/step_3");
+      setLoading(true);
+      const emailExists = await checkIfEmailExists(email.value);
+      if (emailExists) {
+        setLoading(false);
+        setEmail({
+          ...email,
+          isInvalid: true,
+          errorMessage: "Email already exists.",
+        });
+      } else{
+        const response = await sendVerificationEmail(email.value);
+        //updating store
+        const payload = {
+          email: email.value,
+          password: password.value,
+          verificationCode: response.data.data.verificationCode,
+        };
+        dispatch(setAccountDetails(payload));
+        dispatch(setVerificationCode(payload));
+        if (response) setLoading(false);
+        //navigating to next page
+        navigate("/auth/register/step_3");
+      }
     } else {
       //handling empty field errors
       if (email.isInvalid === null)
@@ -228,7 +240,7 @@ if(response) setLoading(false)
         label="Next"
         color="primary"
         customStyle="font-bold"
-        isLoading = {loading}
+        isLoading={loading}
         clickEvent={onSubmitClick}
       />
     </>

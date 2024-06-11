@@ -9,7 +9,11 @@ import {
   faAngleRight,
   faCalendar,
   faClipboardList,
-  faUsers
+  faUsers,
+  faMapLocationDot,
+  faCloudArrowUp,
+  faPlus,
+  faXmark
 } from "@fortawesome/free-solid-svg-icons";
 
 const iconLibrary = library.add(
@@ -21,7 +25,11 @@ const iconLibrary = library.add(
   faAngleRight,
   faCalendar,
   faClipboardList,
-  faUsers
+  faUsers,
+  faMapLocationDot,
+  faCloudArrowUp,
+  faPlus,
+  faXmark
 );
 
 export default iconLibrary;

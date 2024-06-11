@@ -161,7 +161,7 @@ const Step2 = () => {
           isInvalid: true,
           errorMessage: "Email already exists.",
         });
-      } else{
+      } else {
         const response = await sendVerificationEmail(email.value);
         //updating store
         const payload = {

@@ -34,5 +34,5 @@ export const createFutsalProfile = async (payload) => {
   const method = "post";
   const url = "venues/add";
   const response = await useAxios(url, method, payload);
-  return response;
+  return response.data;
 };

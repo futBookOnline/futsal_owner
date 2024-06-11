@@ -63,6 +63,22 @@ const Step3 = () => {
         };
         const response = await registerFutsalOwner(ownerPayload);
         console.log("RESPOSE: ", response);
+        if (response.data) {
+          const addressArray = store
+            .getState()
+            .registerReducer.location.split(",");
+          const profilePayload = {
+            name: store.getState().registerReducer.futsalName,
+            userId: response.data._id,
+            address: {
+              street: addressArray[0],
+              district: addressArray[1].trim(),
+            },
+            contact: store.getState().registerReducer.phoneNumber,
+          };
+          const profileResponse = await createFutsalProfile(profilePayload);
+          console.log("PROFILE RESPONSE: ", profileResponse);
+        }
       } catch (error) {
       } finally {
         setLoading(false);

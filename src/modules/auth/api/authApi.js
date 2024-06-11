@@ -36,3 +36,10 @@ export const createFutsalProfile = async (payload) => {
   const response = await useAxios(url, method, payload);
   return response.data;
 };
+
+export const login = async (payload) => {
+  const method = "post"
+  const url = "owners/login"
+  const response = await useAxios(url, method, payload)
+  return response.data
+}

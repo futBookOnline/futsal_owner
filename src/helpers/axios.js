@@ -2,6 +2,7 @@ import axios from "axios";
 
 export const useAxios = async (url, method, payload) => {
   const apiUrl = `https://futsal-backend.onrender.com/${url}`;
+  // const apiUrl = `http://localhost:3000/${url}`
   const httpMethod = method.toUpperCase();
   let result;
   switch (httpMethod) {

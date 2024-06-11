@@ -6,12 +6,19 @@ import { useState } from "react";
 import { emailRegex, passwordRegex } from "@/helpers/regex";
 import PasswordError from "@/modules/auth/components/PasswordError";
 import { useDispatch } from "react-redux";
-import { setAccountDetails } from "@/store/features/auth/register";
-import { sendEmailVerification } from "@/helpers/nodeMailer";
+import {
+  setAccountDetails,
+  setVerificationCode,
+} from "@/store/features/auth/register";
+import {
+  sendVerificationEmail,
+  checkIfEmailExists,
+} from "@/modules/auth/api/authApi";
 
 const Step2 = () => {
-  const navigate = useNavigate();  
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
   /**state and validation for futsal name */
   const [email, setEmail] = useState({
     value: "",
@@ -141,21 +148,34 @@ const Step2 = () => {
     });
   };
 
-  const onSubmitClick = () => {
+  const onSubmitClick = async () => {
     const isValid = (value) => value.isInvalid !== null && !value.isInvalid;
     const isFormValid = [email, password, confirmPassword].every(isValid);
-    if (isFormValid){ 
-      //updating store
-      const payload={
-        "email" : email.value,
-        "password": password.value
+    if (isFormValid) {
+      setLoading(true);
+      const emailExists = await checkIfEmailExists(email.value);
+      if (emailExists) {
+        setLoading(false);
+        setEmail({
+          ...email,
+          isInvalid: true,
+          errorMessage: "Email already exists.",
+        });
+      } else{
+        const response = await sendVerificationEmail(email.value);
+        //updating store
+        const payload = {
+          email: email.value,
+          password: password.value,
+          verificationCode: response.data.data.verificationCode,
+        };
+        dispatch(setAccountDetails(payload));
+        dispatch(setVerificationCode(payload));
+        if (response) setLoading(false);
+        //navigating to next page
+        navigate("/auth/register/step_3");
       }
-      dispatch(setAccountDetails(payload)) 
-      //navigating to next page
-      sendEmailVerification(email.value) 
-      navigate("/auth/register/step_3");}
-    else {
-
+    } else {
       //handling empty field errors
       if (email.isInvalid === null)
         setEmail({
@@ -220,6 +240,7 @@ const Step2 = () => {
         label="Next"
         color="primary"
         customStyle="font-bold"
+        isLoading={loading}
         clickEvent={onSubmitClick}
       />
     </>

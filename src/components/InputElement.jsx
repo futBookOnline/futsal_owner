@@ -14,6 +14,7 @@ const InputElement = ({
   onBlur,
   customStyle,
   type,
+  maxLength,
   endContent
 }) => {
 
@@ -30,6 +31,7 @@ const InputElement = ({
       onBlur={onBlur}
       className={customStyle}
       type={type}
+      maxLength={maxLength}
       endContent={endContent}
     />
   );

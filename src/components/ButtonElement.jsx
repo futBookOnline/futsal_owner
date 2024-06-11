@@ -14,6 +14,7 @@ const ButtonElement = (props) => {
     icon,
     customStyle,
     clickEvent,
+    isLoading,
     isDisabled,
   } = props;
   return (
@@ -27,6 +28,7 @@ const ButtonElement = (props) => {
       isIconOnly={isIconOnly}
       className={customStyle}
       onPress={clickEvent}
+      isLoading= {isLoading}
       isDisabled={isDisabled}
     >
       {isIconOnly && icon ? <FontAwesomeIcon icon={icon} /> : label}

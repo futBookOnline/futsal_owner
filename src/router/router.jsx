@@ -3,7 +3,8 @@ import { Navigate, createBrowserRouter } from "react-router-dom";
 import authRoutes from "@/modules/auth/AuthRoutes";
 import dashboardRoutes from "@/modules/dashboard/DashboardRoutes";
 import App from "@/App";
-import Dashboard from "../modules/dashboard/pages/Dashboard";
+import onboardibgRoutes from "@/modules/onboarding/onboardingRoutes";
+
 
 const router = createBrowserRouter([
   {
@@ -12,6 +13,7 @@ const router = createBrowserRouter([
     children: [{ path: "/", element: <Navigate to="/auth" /> }, authRoutes],
   },
   dashboardRoutes,
+  onboardibgRoutes
 ]);
 
 export default router;

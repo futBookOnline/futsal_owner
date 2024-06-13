@@ -18,10 +18,6 @@ const Onboarding = () => {
         }
     ]
 
-    const removeRow = (currentIndex) => {
-        const newSetOfRows = rows.splice(currentIndex, 1);
-        setRows([...rows, newSetOfRows])
-    }
 
     const [currentRow, setCurrentRow] = useState(0)
     const [rows, setRows] = useState([< PriceManager index={currentRow} lastIndex={0} />]);
@@ -34,7 +30,12 @@ const Onboarding = () => {
         setRows([...rows, <PriceManager index={rowNumber} lastIndex={rowNumber} deleteRow={() => removeRow(rowNumber)} />])
     };
 
-
+    const removeRow = (currentIndex) => {
+        console.log(currentIndex, rows)
+        const newSetOfRows = rows.slice(currentIndex, currentIndex + 1);
+        setRows([...rows], [...rows].concat(newSetOfRows))
+        console.log("Ater:", rows);
+    }
 
 
 

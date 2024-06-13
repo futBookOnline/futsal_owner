@@ -1,8 +1,8 @@
 import Onboarding from "./Onboarding";
 
-const onboardibgRoutes = {
+const onboardingRoutes = {
     path: "/onboarding",
     element: <Onboarding />,
 };
 
-export default onboardibgRoutes;
+export default onboardingRoutes;

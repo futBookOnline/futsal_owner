@@ -1,5 +1,5 @@
 import axios from "axios";
-
+axios.defaults.withCredentials = true;
 export const useAxios = async (url, method, payload) => {
   const apiUrl = `https://futsal-backend.onrender.com/${url}`;
   // const apiUrl = `http://localhost:3000/${url}`

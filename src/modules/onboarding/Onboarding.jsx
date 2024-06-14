@@ -5,6 +5,7 @@ import SelectElement from "../../components/SelectElement";
 import { useState } from "react";
 import PriceManager from "./components/PriceManager";
 
+
 const Onboarding = () => {
 
     const options = [
@@ -25,17 +26,31 @@ const Onboarding = () => {
 
 
     const addItem = () => {
-        const rowNumber = currentRow + 1;
-        setCurrentRow(rowNumber)
-        setRows([...rows, <PriceManager index={rowNumber} lastIndex={rowNumber} deleteRow={() => removeRow(rowNumber)} />])
+        // const rowNumber = currentRow + 1;
+        // setCurrentRow(rowNumber)
+        // setRows([...rows, <PriceManager index={rowNumber} lastIndex={rowNumber} deleteRow={() => removeRow(rowNumber)} />])
+        const newRow = {
+            startingTime: null,
+            endingTime: null,
+            price: null
+        }
+
+        setPriceList([...priceList, newRow])
     };
 
     const removeRow = (currentIndex) => {
-        console.log(currentIndex, rows)
+        // console.log(currentIndex, rows)
         const newSetOfRows = rows.slice(currentIndex, currentIndex + 1);
         setRows([...rows], [...rows].concat(newSetOfRows))
-        console.log("Ater:", rows);
+        // console.log("Ater:", rows);
     }
+
+    const [priceList, setPriceList] = useState([{
+        id: Symbol(),
+        startingTime: null,
+        endingTime: null,
+        price: null,
+    }])
 
 
 
@@ -67,11 +82,15 @@ const Onboarding = () => {
         <div className="w-full flex flex-col gap-2">
             <p className="text-lg font-medium">Price</p>
 
-            {
+            <PriceManager priceList={priceList} setPriceList={setPriceList} />
+            {/* Button to add a new row */}
+            <ButtonElement customStyle="max-w-fit" label="Add new item" startContent={<FontAwesomeIcon icon="fa-solid fa-plus" />} clickEvent={addItem} />
+
+            {/* {
                 rows.map(row =>
                     row
                 )
-            }
+            } */}
 
             {/* Existing JSX code */}
             {/* {rows.map((row, rowIndex) => (
@@ -90,8 +109,8 @@ const Onboarding = () => {
                     </div>
                 </>
             ))} */}
-            {/* Button to add a new row */}
-            <ButtonElement customStyle="max-w-fit" label="Add new item" startContent={<FontAwesomeIcon icon="fa-solid fa-plus" />} clickEvent={addItem} />
+            {/* Button to add a new row
+            <ButtonElement customStyle="max-w-fit" label="Add new item" startContent={<FontAwesomeIcon icon="fa-solid fa-plus" />} clickEvent={addItem} /> */}
             {/* Next button */}
             <hr className="bg-[grey] my-[1.5rem] w-full h-[.1rem]" />
             <ButtonElement label="Next" customStyle="bg-primary-green text-md text-white font-semibold min-w-fit max-w-[15rem]" />

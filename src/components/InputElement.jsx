@@ -9,13 +9,16 @@ const InputElement = ({
   variant,
   description,
   onChange,
+  onValueChange,
   isInvalid,
   errorMessage,
   onBlur,
   customStyle,
+  classNames,
   type,
   maxLength,
-  endContent
+  endContent,
+  value,
 }) => {
 
   return (
@@ -26,13 +29,16 @@ const InputElement = ({
       placeholder={placeholder}
       description={description}
       onChange={onChange}
+      onValueChange={onValueChange}
       isInvalid={isInvalid}
       errorMessage={errorMessage}
       onBlur={onBlur}
       className={customStyle}
+      classNames={classNames}
       type={type}
       maxLength={maxLength}
       endContent={endContent}
+      value={value && value}
     />
   );
 };

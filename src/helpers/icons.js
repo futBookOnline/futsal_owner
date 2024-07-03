@@ -13,7 +13,9 @@ import {
   faMapLocationDot,
   faCloudArrowUp,
   faPlus,
-  faXmark
+  faXmark,
+  faChevronLeft,
+  faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 
 const iconLibrary = library.add(
@@ -29,7 +31,9 @@ const iconLibrary = library.add(
   faMapLocationDot,
   faCloudArrowUp,
   faPlus,
-  faXmark
+  faXmark,
+  faChevronLeft,
+  faChevronRight
 );
 
 export default iconLibrary;

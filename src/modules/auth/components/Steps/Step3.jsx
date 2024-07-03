@@ -7,8 +7,10 @@ import {
   registerFutsalOwner,
   createFutsalProfile,
 } from "@/modules/auth/api/authApi";
+import { useNavigate } from "react-router-dom";
 
 const Step3 = () => {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const verificationCode = store.getState().registerReducer.verificationCode;
@@ -30,8 +32,8 @@ const Step3 = () => {
         newValue == ""
           ? "This field can't be empty"
           : newValue != verificationCode
-          ? "Code does not match"
-          : null,
+            ? "Code does not match"
+            : null,
     });
     isInvalid ? setDisabled(true) : setDisabled(false);
   };
@@ -47,8 +49,8 @@ const Step3 = () => {
         confirmationCode.value == ""
           ? "This field can't be empty"
           : confirmationCode.value != verificationCode
-          ? "Code does not match"
-          : null,
+            ? "Code does not match"
+            : null,
     });
     isInvalid ? setDisabled(true) : setDisabled(false);
   };
@@ -63,21 +65,27 @@ const Step3 = () => {
         };
         const response = await registerFutsalOwner(ownerPayload);
         console.log("RESPOSE: ", response);
-        if (response.data) {
+        if (response) {
           const addressArray = store
             .getState()
             .registerReducer.location.split(",");
+          console.log(addressArray);
           const profilePayload = {
-            name: store.getState().registerReducer.futsalName,
-            userId: response.data._id,
+            name: store.getState()?.registerReducer?.futsalName,
+            userId: response._id,
             address: {
               street: addressArray[0],
-              district: addressArray[1].trim(),
+              district: addressArray[1]?.trim(),
             },
-            contact: store.getState().registerReducer.phoneNumber,
+            contact: store.getState()?.registerReducer?.phoneNumber,
           };
+          console.log("Code is working till here")
           const profileResponse = await createFutsalProfile(profilePayload);
-          console.log("PROFILE RESPONSE: ", profileResponse);
+          console.log("Is code working here??")
+          console.log(profileResponse);
+          if (profileResponse) {
+            navigate("/onboarding", { state: profileResponse })
+          }
         }
       } catch (error) {
       } finally {

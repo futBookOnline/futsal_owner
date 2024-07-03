@@ -163,11 +163,12 @@ const Step2 = () => {
         });
       } else {
         const response = await sendVerificationEmail(email.value);
+        console.info(response)
         //updating store
         const payload = {
           email: email.value,
           password: password.value,
-          verificationCode: response.data.data.verificationCode,
+          verificationCode: response.data.verificationCode,
         };
         dispatch(setAccountDetails(payload));
         dispatch(setVerificationCode(payload));

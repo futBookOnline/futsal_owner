@@ -1,62 +1,68 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import InputElement from "@/components/InputElement";
 import ButtonElement from "@/components/ButtonElement";
-import SelectElement from "../../components/SelectElement";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PriceManager from "./components/PriceManager";
+import UploadElement from "@/components/UploadElement";
+
+import { useSelector } from "react-redux";
+
+import { submitFutsalData } from "./api/onboardingApi"; 
+import { useLocation } from "react-router-dom";
+
+
+
 
 
 const Onboarding = () => {
 
-    const options = [
-        {
-            key: "1",
-            label: "1"
-        },
-        {
-            key: "2",
-            label: "2"
+    const priceList = useSelector(state => state.priceListReducer);
+
+    const [file, setFile] = useState(null)
+
+    const userID = useLocation().state._id;
+    console.log(userID);
+
+
+    const handleFileUpload = (fileCollection) => {
+        setFile(fileCollection);
+        console.log(fileCollection);
+      };
+    
+      const [isLoading, setIsLoading] = useState(false);
+    
+      const handleSubmit = async () => {
+        setIsLoading(true);
+    
+        if (!file) {
+          console.error("No file selected");
+          setIsLoading(false);
+          return;
         }
-    ]
-
-    const removeRow = (currentIndex) => {
-        const newSetOfRows = rows.splice(currentIndex, 1);
-        setRows([...rows, newSetOfRows])
-    }
-
-    const [currentRow, setCurrentRow] = useState(0)
-    const [rows, setRows] = useState([< PriceManager index={currentRow} lastIndex={0} />]);
-
-
-
-    const addItem = () => {
-        // const rowNumber = currentRow + 1;
-        // setCurrentRow(rowNumber)
-        // setRows([...rows, <PriceManager index={rowNumber} lastIndex={rowNumber} deleteRow={() => removeRow(rowNumber)} />])
-        const newRow = {
-            startingTime: null,
-            endingTime: null,
-            price: null
+    
+        const formData = new FormData();
+        formData.append("file", file[0]);
+        formData.append("priceList", JSON.stringify(priceList));
+    
+        try {
+          const result = await submitFutsalData(formData, userID);
+          console.log("API response:", result);
+          // Handle response as needed
+        } catch (error) {
+          console.error("Error submitting data:", error);
+          // Handle error appropriately
+        } finally {
+          setIsLoading(false);
         }
-
-        setPriceList([...priceList, newRow])
-    };
-
-    const removeRow = (currentIndex) => {
-        // console.log(currentIndex, rows)
-        const newSetOfRows = rows.slice(currentIndex, currentIndex + 1);
-        setRows([...rows], [...rows].concat(newSetOfRows))
-        // console.log("Ater:", rows);
-    }
-
-    const [priceList, setPriceList] = useState([{
-        id: Symbol(),
-        startingTime: null,
-        endingTime: null,
-        price: null,
-    }])
+      };
 
 
+    //changing the label based
+    const [submitLabel, setSubmitLabel] = useState("Next")
+    useEffect(() => {
+        let label;
+        isLoading ? label = "Loading" : label = "Next";
+        setSubmitLabel(label)
+    }, [isLoading])
 
 
     return <div className="w-full    overflow-y-scroll flex flex-col gap-6 items-start justify-center px-20 py-20">
@@ -65,13 +71,18 @@ const Onboarding = () => {
             <p className="text-lg text-gray-600 font-medium">Enter necessary futsal details</p>
         </div>
 
-        <div className="w-full flex flex-col gap-2" onClick={() => handleFileUpload}>
+        <div className="w-full flex flex-col gap-2">
             <p className="text-lg font-medium">Futsal Photo</p>
-            <div className="border-2 border-dashed flex flex-col items-center rounded-large py-3 cursor-pointer">
+            {/* <div className="border-2 border-dashed flex flex-col items-center rounded-large py-3 cursor-pointer relative overflow-hidden" >
+                <input type="file" className="opacity-0 absolute top-0 left-0 w-full h-full cursor-pointer" onChange={handleFileUpload}
+                    accept="image/png image/jpeg image/svg" />
                 <FontAwesomeIcon icon="fa-solid fa-cloud-arrow-up" className="text-gray-600" />
                 <p className="text-md text-gray-600 font-semibold">Upload an image</p>
                 <p className="text-xs font-medium text-gray-600">Supported files: JPG, JPEG, PNG, SVG</p>
-            </div>
+            </div> */}
+
+            <UploadElement sendFileToParent={handleFileUpload} />
+            {/* <UploadElement /> */}
         </div>
 
         <div className="w-full flex flex-col gap-2">
@@ -86,38 +97,15 @@ const Onboarding = () => {
         <div className="w-full flex flex-col gap-2">
             <p className="text-lg font-medium">Price</p>
 
-            <PriceManager priceList={priceList} setPriceList={setPriceList} />
-            {/* Button to add a new row */}
-            <ButtonElement customStyle="max-w-fit" label="Add new item" startContent={<FontAwesomeIcon icon="fa-solid fa-plus" />} clickEvent={addItem} />
-
-            {/* {
-                rows.map(row =>
-                    row
-                )
-            } */}
-
-            {/* Existing JSX code */}
-            {/* {rows.map((row, rowIndex) => (
-                <>
-                    <div key={rowIndex} className="w-full flex gap-4 items-end pb-4">
-                        {row.selectElements.map((el, index) => (
-                            <SelectElement key={index} items={el.items} label={el.label} placeholder={el.placeholder} variant="bordered" className="max-w-[15rem]" />
-                        ))}
-                        {row.inputElement.map((el, index) => (
-                            <InputElement key={index} placeholder={el.placeholder} label={el.label} customStyle="max-w-[15rem]" variant="bordered" placement="outside" />
-                        ))}
-                        {
-                            (rows.indexOf(row) == rows.length - 1 && rows.indexOf(row) != 0) &&
-                            <ButtonElement isIconOnly={true} icon={"fa-solid fa-xmark"} color="danger" customStyle="p-0" clickEvent={deleteRow} />}
-                        {rowIndex}
-                    </div>
-                </>
-            ))} */}
-            {/* Button to add a new row
-            <ButtonElement customStyle="max-w-fit" label="Add new item" startContent={<FontAwesomeIcon icon="fa-solid fa-plus" />} clickEvent={addItem} /> */}
+            <PriceManager />
             {/* Next button */}
             <hr className="bg-[grey] my-[1.5rem] w-full h-[.1rem]" />
-            <ButtonElement label="Next" customStyle="bg-primary-green text-md text-white font-semibold min-w-fit max-w-[15rem]" />
+            <ButtonElement
+                clickEvent={handleSubmit}
+                isLoading={isLoading}
+                label={setSubmitLabel ? submitLabel : "Next"}
+                customStyle="max-w-fit px-20 text-white font-semibold bg-primary-green"
+            />
         </div>
     </div>
 }

@@ -10,3 +10,79 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+/*react transitions*/
+/*fade*/
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-enter-active {
+  opacity: 1;
+}
+
+.fade-exit-active {
+  opacity: 0;
+}
+
+.fade-enter-active,
+.fade-exit-active {
+  transition: opacity 500ms;
+}
+
+/*pop*/
+.pop-enter {
+  opacity: 0;
+  transform: scale(0);
+}
+
+.pop-exit {
+  opacity: 1;
+  transform: scale(0);
+}
+
+.pop-enter-active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.pop-exit-active {
+  opacity: 0;
+  transform: scale(0);
+}
+
+.pop-enter-active,
+.pop-exit-active {
+  transition: all 500ms;
+}
+
+/*slide-from-left*/
+.slide-from-left-enter {
+  opacity: 0;
+  transform: translateX(-100px);
+}
+
+.slide-from-left-exit {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.slide-from-left-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.slide-from-left-exit-active {
+  opacity: 0;
+  transform: translateX(200px);
+}
+
+.slide-from-left-enter-active,
+.slide-from-left-exit-active {
+  transition: all 500ms;
+}

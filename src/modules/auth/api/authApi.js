@@ -34,12 +34,12 @@ export const createFutsalProfile = async (payload) => {
   const method = "post";
   const url = "venues/add";
   const response = await useAxios(url, method, payload);
-  return response.data;
+  return response;
 };
 
 export const login = async (payload) => {
   const method = "post"
   const url = "owners/login"
   const response = await useAxios(url, method, payload)
-  return response.data
+  return response?.data
 }

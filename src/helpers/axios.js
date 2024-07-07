@@ -1,6 +1,9 @@
 import axios from "axios";
 axios.defaults.withCredentials = true;
-
+axios.defaults.proxy = "https://futsal-backend.onrender.com";
+axios.defaults.headers = {
+  "Access-Control-Allow-Origin": "*"
+}
 
 export const useAxios = async (url, method, payload) => {
   const apiUrl = `https://futsal-backend.onrender.com/${url}`;

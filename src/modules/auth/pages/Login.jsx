@@ -137,7 +137,8 @@ const Login = () => {
 
         loginResponse.isOnboarded ? navigate("/dashboard") : navigate("/onboarding", { state: loginResponse });
       } catch (error) {
-        throw error;
+        console.info(error);
+        
       }
       finally {
         setLoading(false);

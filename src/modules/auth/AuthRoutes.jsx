@@ -11,7 +11,7 @@ const authRoutes = {
   element: <Auth />,
   children: [
     // Redirect from /auth to /auth/register
-    { path: "/auth", element: <Navigate to="register" /> },
+    { path: "/auth", element: <Navigate to="login" /> },
     {
       path: "register",
       element: <Register />,
